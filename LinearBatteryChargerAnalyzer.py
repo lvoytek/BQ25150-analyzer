@@ -32,9 +32,6 @@ class LinearBatteryCharger(HighLevelAnalyzer):
         },
         'generic_write': {
           'format' : 'Wrote {{data.data}} to the {{data.data}} register'
-        },
-        'register': {
-          'format' : 'Using the {{data.data}} register'
         }
     }
 
@@ -47,6 +44,7 @@ class LinearBatteryCharger(HighLevelAnalyzer):
         '''
         self._continue_analysis = False
         self._is_reg_next = True
+        self._current_register = -1
 
     def decode(self, frame: AnalyzerFrame):
         '''
@@ -86,23 +84,33 @@ class LinearBatteryCharger(HighLevelAnalyzer):
 
         if frame.type == "data":
           if self._continue_analysis:
-            data_byte = frame.data["data"][0]
+            data_byte = int(frame.data["data"][0])
 
             # I2C is telling device which register to start at
             if self._is_reg_next:
 
               self._is_reg_next = False
 
-              if int(data_byte) in BQ25150.REGISTERS:
+              self._current_register = data_byte
+
+              if data_byte in BQ25150.REGISTERS:
                 self.temp_frame.data["address"] = BQ25150.REGISTERS[data_byte]
               else:
                 self.temp_frame.data["address"] = hex(data_byte)
 
             # I2C read or write register data
             else:
-              if len(self.temp_frame.data["data"]) > 0:
-                  self.temp_frame.data["data"] += ", "
-              self.temp_frame.data["data"] += hex(data_byte)
+              # This is a status register, view each bit value
+              if(self._current_register in BQ25150.DERIVED_STATUS):
+                for status_bit in BQ25150.DERIVED_STATUS[self._current_register].keys():
+                  if(status_bit & data_byte):
+                    if len(self.temp_frame.data["data"]) > 0:
+                      self.temp_frame.data["data"] += ", "
+                    self.temp_frame.data["data"] += BQ25150.DERIVED_STATUS[self._current_register][status_bit]
+
+              # This is a generic register, just show a hex value
+              else:
+                self.temp_frame.data["data"] = hex(data_byte)
 
         if frame.type == "stop":
             self.temp_frame.end_time = frame.end_time
@@ -111,4 +119,5 @@ class LinearBatteryCharger(HighLevelAnalyzer):
 
             if self._continue_analysis:
               self._continue_analysis = False
+              self._current_register = -1
               return new_frame

@@ -53,3 +53,20 @@ REGISTERS = {
   0x65 : "Hot Threshold",
   0x6f : "Device ID"
 }
+
+
+def set_bit(bit_num):
+  return 1 << bit_num
+
+
+DERIVED_STATUS = {
+  0x00: {
+    set_bit(0) : "Good",
+    set_bit(1) : "Thermal Regulation Active",
+    set_bit(2) : "VINDPM Active",
+    set_bit(3) : "DPPM Active",
+    set_bit(4) : "Input Current Limit Active",
+    set_bit(5) : "Charging Done",
+    set_bit(6) : "Constant Voltage Charge Mode Active"
+  }
+}
