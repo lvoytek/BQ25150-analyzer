@@ -66,7 +66,7 @@ REGISTERS = {
 }
 
 # High level analyzers must subclass the HighLevelAnalyzer class.
-class Hla(HighLevelAnalyzer):
+class LinearBatteryCharger(HighLevelAnalyzer):
     # List of settings that a user can set for this High Level Analyzer.
     my_string_setting = StringSetting()
     my_number_setting = NumberSetting(min_value=0, max_value=100)

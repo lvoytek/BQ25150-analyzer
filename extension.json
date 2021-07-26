@@ -7,7 +7,7 @@
   "extensions": {
     "BQ25150 Linear Battery Charger": {
       "type": "HighLevelAnalyzer",
-      "entryPoint": "HighLevelAnalyzer.Hla"
+      "entryPoint": "LinearBatteryChargerAnalyzer.LinearBatteryCharger"
     }
   }
 }
