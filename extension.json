@@ -1,0 +1,13 @@
+{
+  "name": "BQ25150 Linear Battery Charger",
+  "apiVersion": "1.0.0",
+  "author": "Lena Voytek",
+  "version": "0.0.1",
+  "description": "I2C interface analyzer for the TI BQ25150 Linear Battery Charger",
+  "extensions": {
+    "BQ25150 Linear Battery Charger": {
+      "type": "HighLevelAnalyzer",
+      "entryPoint": "HighLevelAnalyzer.Hla"
+    }
+  }
+}
