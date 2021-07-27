@@ -60,6 +60,7 @@ def set_bit(bit_num):
 
 
 DERIVED_STATUS = {
+  # Status Register 0
   0x00: {
     set_bit(0) : "Good",
     set_bit(1) : "Thermal Regulation Active",
@@ -68,5 +69,42 @@ DERIVED_STATUS = {
     set_bit(4) : "Input Current Limit Active",
     set_bit(5) : "Charging Done",
     set_bit(6) : "Constant Voltage Charge Mode Active"
+  },
+  # Status Register 1
+  0x01: {
+    set_bit(0) : "Hot",
+    set_bit(1) : "Warm",
+    set_bit(2) : "Cool",
+    set_bit(3) : "Cold",
+    set_bit(4) : "Battery Voltage Below Vbatuvlo",
+    set_bit(5) : "Battery Over-Current Protection Active",
+    set_bit(7) : "Vin Overvolted"
+  },
+  # ADC Status
+  0x02: {
+    set_bit(0) : "TS open",
+    set_bit(4) : "ADC Voltage Above Level 3",
+    set_bit(5) : "ADC Voltage Above Level 2",
+    set_bit(6) : "ADC Voltage Above Level 1"
+  },
+  # Flags 0
+  0x03: {
+    set_bit(0) : "Vin Power Good",
+    set_bit(1) : "Thermal Regulation Detected",
+    set_bit(2) : "VINDPM Detected",
+    set_bit(3) : "DPPM Detected",
+    set_bit(4) : "Input Current Limit Detected",
+    set_bit(5) : "Charging Done",
+    set_bit(6) : "Constant Voltage Charge Mode Detected"
+  },
+  # Flags 1
+  0x04: {
+    set_bit(0) : "Hot Region Entry Detected",
+    set_bit(1) : "Warm Region Entry Detected",
+    set_bit(2) : "Cool Region Entry Detected",
+    set_bit(3) : "Cold Region Entry Detected",
+    set_bit(4) : "Battery Undervoltage Detected",
+    set_bit(5) : "Battery Over-Current Detected",
+    set_bit(7) : "Vin Overvoltage Detected"
   }
 }
