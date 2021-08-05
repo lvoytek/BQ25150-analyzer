@@ -108,3 +108,35 @@ DERIVED_STATUS = {
     set_bit(7) : "Vin Overvoltage Detected"
   }
 }
+
+# List of MSB regs for multi-byte data entries
+MULTI_BYTE_DATA = {
+  0x42 : {
+    "name" : "Battery Voltage",
+    "units": "mV",
+  },
+  0x44 : {
+    "name" : "Thermistor Input",
+    "units": "mV"
+  },
+  0x46 : {
+    "name" : "Charge Current",
+    "units": "mA"
+  },
+  0x48 : {
+    "name" : "ADC Input",
+    "units": "mV"
+  },
+  0x4a : {
+    "name" : "Vin",
+    "units": "mV"
+  },
+  0x4c : {
+    "name" : "Vpmid",
+    "units": "mV"
+  },
+  0x4e : {
+    "name" : "Iin",
+    "units": "mA"
+  }
+}
