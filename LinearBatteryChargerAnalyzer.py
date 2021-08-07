@@ -59,6 +59,7 @@ class LinearBatteryCharger(HighLevelAnalyzer):
         self._continue_analysis = False
         self._is_reg_next = True
         self._current_register = -1
+        self._current_conversion_value = 1
 
     def decode(self, frame: AnalyzerFrame):
         '''
@@ -132,7 +133,13 @@ class LinearBatteryCharger(HighLevelAnalyzer):
                             self.multi_frame = AnalyzerFrame("unit_write", self.temp_frame.start_time, frame.end_time, {
                             })
                         self.multi_frame.data["address"] = BQ25150.MULTI_BYTE_DATA[data_byte]["name"]
-                        self.multi_frame.data["data"] = ""
+                        self.multi_frame.data["data"] = BQ25150.MULTI_BYTE_DATA[data_byte]["units"]
+
+                        if "convert" in BQ25150.MULTI_BYTE_DATA[data_byte]:
+                            self._current_conversion_value = BQ25150.MULTI_BYTE_DATA[
+                                data_byte]["convert"]
+                        else:
+                            self._current_conversion_value = 1
                     else:
                         self.is_possible_multi = False
 
@@ -153,7 +160,9 @@ class LinearBatteryCharger(HighLevelAnalyzer):
                     # Multi-byte calculations
                     if self.is_multi:
                         self.calc_data = self.calc_data + data_byte
-                        self.temp_frame.data["data"] = hex(
+                        self.calc_data *= self._current_conversion_value
+                        self.calc_data = int(self.calc_data)
+                        self.temp_frame.data["data"] = str(
                             self.calc_data) + self.multi_frame.data["data"]
                     elif self.is_possible_multi:
                         self.calc_data = data_byte << 8
