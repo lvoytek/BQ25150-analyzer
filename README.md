@@ -1,13 +1,7 @@
+# BQ25150 Linear Battery Charger for Logic 2
 
-  # BQ25150 Linear Battery Charger
-  
-## Getting started
+[![GitHub license](https://img.shields.io/github/license/lvoytek/BQ25150-analyzer)](https://raw.githubusercontent.com/lvoytek/Bq25150-analyzer/main/LICENSE)
 
-1. Build your extension by updating the Python files for your needs
-2. Create a public Github repo and push your code 
-3. Update this README
-4. Open the Logic app and publish your extension
-5. Create a Github release
-6. Debug your hardware like you've never done before :)
+This is a high level analyzer plugin for Saleae Logic 2 that describes in words what information is going back and forth on the I2C line of a TI BQ251XX linear battery charger.
 
-  
+![A view of the status register and battery voltage outputs](img/stat_and_voltage.png)
