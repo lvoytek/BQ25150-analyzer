@@ -1,18 +1,16 @@
-# High Level Analyzer
-# For more information and documentation, please go to https://support.saleae.com/extensions/high-level-analyzer-extensions
+# LinearBatteryChargerAnalyzer
+#
+# This file contains the code that extracts information from each I2C transaction then converts it to a human readable
+# format so that the user can easily see what a specific Linear Battery Charger Analyzer is doing.
+#
+# Author: Lena Voytek
 
 from saleae.analyzers import HighLevelAnalyzer, AnalyzerFrame, StringSetting, NumberSetting, ChoicesSetting
 
 import struct
 import BQ25150
 
-DATA_COMMANDS = {
-
-}
-
 CHARGER_I2C_ADDRESS = 0x6B
-
-# High level analyzers must subclass the HighLevelAnalyzer class.
 
 
 class LinearBatteryCharger(HighLevelAnalyzer):

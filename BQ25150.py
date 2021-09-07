@@ -1,3 +1,10 @@
+# BQ25150
+#
+# This file contains register information on the TI BQ25150 linear battery charger that can be used by the main
+# function in LinearBatteryChargerAnalyzer.py
+#
+# Author: Lena Voytek
+
 REGISTERS = {
     0x00: "Charger Status 0",
     0x01: "Charger Status 1",
